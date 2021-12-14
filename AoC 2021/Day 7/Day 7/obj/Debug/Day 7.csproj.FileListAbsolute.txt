@@ -1,0 +1,7 @@
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\bin\Debug\Day 7.exe.config
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\bin\Debug\Day 7.exe
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\bin\Debug\Day 7.pdb
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\obj\Debug\Day 7.csproj.AssemblyReference.cache
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\obj\Debug\Day 7.csproj.CoreCompileInputs.cache
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\obj\Debug\Day 7.exe
+C:\Users\Alan\Nextcloud2\AoC\Day 7\Day 7\obj\Debug\Day 7.pdb
