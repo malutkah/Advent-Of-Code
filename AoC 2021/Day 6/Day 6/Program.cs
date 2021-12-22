@@ -30,7 +30,7 @@ namespace Day_6
 
         static void Main(string[] args)
         {
-            FillList();
+            //FillList();
 
             Part1();
 
@@ -39,36 +39,31 @@ namespace Day_6
 
         private static void Part1()
         {
-            List<long> nums = new List<long>();
-            nums = inputs[0].Split(',').Select(long.Parse).ToList();
-            int newCount = 0;
-            int countSave = 0;
+            string[] _inputs = File.ReadAllText(Path.Combine(@"C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6", "input.txt")).Split(',');
 
-            Console.WriteLine($"Initial State: {inputs[0]}");
+            int[] input = (Array.ConvertAll(_inputs, s => Int32.Parse(s)));
+
+            long[] fishGens = new long[9];
+
+            foreach (var f in input)
+            {
+                fishGens[f]++;
+            }
 
             for (int i = 0; i < 256; i++)
             {
-                newCount = nums.Count;
+                long newOnes = fishGens[0];
 
-                for (int n = 0; n < newCount; n++)
+                for (int j = 1; j < fishGens.Length; j++)
                 {
-                    nums[n]--;
-
-                    if (nums[n] < 0)
-                    {                        
-                        nums[n] = 6;
-                        nums.Add(8);
-                        // 253.086.074
-                        // 2.146.435.071
-                        // save current count and clear list und mach weiter
-                    }
+                    fishGens[j - 1] = fishGens[j];
                 }
 
-                //Console.WriteLine($"After {i+1} day(s): {string.Join(",", nums)}");
+                fishGens[8] = newOnes;
+                fishGens[6] += newOnes;
             }
 
-            Console.WriteLine($"There are a total of {nums.Count} fish!");
-
+            Console.WriteLine($"{fishGens.Sum()}");
         }
 
     }

@@ -5,3 +5,10 @@ C:\Users\Alan\Nextcloud2\AoC\Day 6\Day 6\obj\x64\Debug\Day 6.csproj.AssemblyRefe
 C:\Users\Alan\Nextcloud2\AoC\Day 6\Day 6\obj\x64\Debug\Day 6.csproj.CoreCompileInputs.cache
 C:\Users\Alan\Nextcloud2\AoC\Day 6\Day 6\obj\x64\Debug\Day 6.exe
 C:\Users\Alan\Nextcloud2\AoC\Day 6\Day 6\obj\x64\Debug\Day 6.pdb
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\bin\x64\Debug\Day 6.exe.config
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\bin\x64\Debug\Day 6.exe
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\bin\x64\Debug\Day 6.pdb
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\obj\x64\Debug\Day 6.csproj.AssemblyReference.cache
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\obj\x64\Debug\Day 6.csproj.CoreCompileInputs.cache
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\obj\x64\Debug\Day 6.exe
+C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 6\Day 6\obj\x64\Debug\Day 6.pdb

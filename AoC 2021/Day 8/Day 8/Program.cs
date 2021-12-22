@@ -12,35 +12,25 @@ namespace Day_8
         private static List<string> inputs = new List<string>();
         private static List<string> testinputs = new List<string>();
         private static List<string> digitsString = new List<string>();
+        private static Dictionary<string, int> codes = new Dictionary<string, int>();
 
         #region digits
-        private const int digit_0 = 6;
-        private const int digit_1 = 2;
-        private const int digit_2 = 5;
-        private const int digit_3 = 5;
-        private const int digit_4 = 4;
-        private const int digit_5 = 5;
-        private const int digit_6 = 6;
-        private const int digit_7 = 3;
-        private const int digit_8 = 7;
-        private const int digit_9 = 6;
-
-        private const string Sdigit_0 = "cagedb";
-        private const string Sdigit_1 = "ab";
-        private const string Sdigit_2 = "gcdfa";
-        private const string Sdigit_3 = "fbcad";
-        private const string Sdigit_4 = "eafb";
-        private const string Sdigit_5 = "cdfbe";
-        private const string Sdigit_6 = "cdfgeb";
-        private const string Sdigit_7 = "dab";
-        private const string Sdigit_8 = "acedgfb";
-        private const string Sdigit_9 = "cefabd";
+        private static int digit_0 = 0;
+        private static int digit_1 = 0;
+        private static int digit_2 = 0;
+        private static int digit_3 = 0;
+        private static int digit_4 = 0;
+        private static int digit_5 = 0;
+        private static int digit_6 = 0;
+        private static int digit_7 = 0;
+        private static int digit_8 = 0;
+        private static int digit_9 = 0;
         #endregion
 
         private static void FillList()
         {
-            string inputPath = @"C:\Users\Alan\Nextcloud2\AoC\Day 8\Day 8\input.txt";
-            string testinputPath = @"C:\Users\Alan\Nextcloud2\AoC\Day 8\Day 8\testinput.txt";
+            string inputPath = @"..\..\input.txt";
+            string testinputPath = @"..\..\testinput.txt";
 
             foreach (string line in File.ReadLines(inputPath))
             {
@@ -57,134 +47,133 @@ namespace Day_8
         {
             FillList();
 
-            //Solve();
-            PrintSegment();
+            Solve();
 
             Console.ReadKey();
         }
 
         private static void Solve()
         {
-            // easy digits:
-            // 1, 4, 7, 8
-
-            List<string[]> outputValues = new List<string[]>();
-            List<string> easyDigits = new List<string>();
-            string[] splitBeforeLine = new string[58];
-            string[] splitAfterLine = new string[58];
-            int easyDigitCounter = 0;
+            List<int> outputValues = new List<int>();
+            List<string> decodes = new List<string>();
+            StringBuilder codeBuilder = new StringBuilder();
+            string[] decoder = new string[58];
+            string[] outputs = new string[58];
+            var final = 0;
 
             // get strings after '|'
-            foreach (string input in inputs)
+            foreach (string input in testinputs)
             {
                 string[] splitLine = input.Split('|');
-                splitBeforeLine = splitLine[0].Split(' ').Where(k => k != "").ToArray();
-                splitAfterLine = splitLine[1].Split(' ').Where(k => k != "").ToArray();
+                decoder = splitLine[0].Split(' ').Where(k => k != "").ToArray();
+                outputs = splitLine[1].Split(' ').Where(k => k != "").ToArray();
 
-                outputValues.Add(splitAfterLine);
-            }
+                var one = decoder.Single(n => n.Length == 2);
+                var four = decoder.Single(n => n.Length == 4);
+                var seven = decoder.Single(n => n.Length == 3);
+                var eight = decoder.Single(n => n.Length == 7);
 
-            for (int s = 0; s < outputValues.Count; s++)
-            {
-                for (int i = 0; i < outputValues[s].Length; i++)
+                #region nine, six and zero
+
+                var nine = decoder.Single(n => n.Length == 6 && n.Except(seven).Except(four).Count() == 1);
+
+                var six = decoder.Single(s => s.Length == 6 && s != nine && one.Except(s).Count() == 1);
+
+                var zero = decoder.Single(z => z.Length == 6 && z != six && z != nine);
+
+                #endregion
+
+                // die restlichen segment codes
+                var alpha = eight.Except(nine).Single();
+
+                var beta = eight.Except(six).Single();
+
+                var gamma = one.Except(new[] { beta }).Single();
+
+                #region two, three and five
+
+                var two = decoder.Single(t => t.Length == 5 && t.Contains(beta) && !t.Contains(gamma));
+
+                var five = decoder.Single(f => f.Length == 5 && f != two && !f.Contains(beta) && !f.Contains(alpha));
+
+                var three = decoder.Single(f => f.Length == 5 && f != two && f != five);
+
+                #endregion
+
+                var numbers = new[] { zero, one, two, three, four, five, six, seven, eight, nine, };
+
+                codes.Add(zero, 0);
+                codes.Add(one, 1);
+                codes.Add(two, 2);
+                codes.Add(three, 3);
+                codes.Add(four, 4);
+                codes.Add(five, 5);
+                codes.Add(six, 6);
+                codes.Add(seven, 7);
+                codes.Add(eight, 8);
+                codes.Add(nine, 9);
+
+                // for each letter in outputs
+                // check if numbers contain the same letter, despite the order
+
+                int yes = 0;
+                for (int i = 0; i < outputs.Length; i++)
                 {
-                    switch (outputValues[s][i].Length)
+                    for (int j = 0; j < numbers.Length; j++)
                     {
-                        case digit_1:
-                            easyDigits.Add(outputValues[s][i]);
-                            break;
-                        case digit_4:
-                            easyDigits.Add(outputValues[s][i]);
-                            break;
-                        case digit_7:
-                            easyDigits.Add(outputValues[s][i]);
-                            break;
-                        case digit_8:
-                            easyDigits.Add(outputValues[s][i]);
-                            break;
-                        default:
-                            break;
+                        if (numbers[j].Length == outputs[i].Length)
+                        {
+                            for (int n = 0; n < numbers[j].Length; n++)
+                            {
+                                if (yes == numbers[j].Length)
+                                {
+                                    break;
+                                }
+
+                                for (int k = 0; k < outputs[i].Length; k++)
+                                {
+                                    if (numbers[j][n] == outputs[i][k])
+                                    {
+                                        yes++;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (yes == numbers[j].Length)
+                            {
+                                var num = codes.First(x => x.Key == numbers[j]).Value;
+
+                                // why 8364??
+                                codeBuilder.Append(num.ToString());
+
+                                yes = 0;
+                                break;
+                            }
+
+                        }
                     }
                 }
+
+                for (int i = 0; i < decodes.Count; i++)
+                {
+                    
+                }
+
+                digit_0 = codes.FirstOrDefault(x => x.Key == zero).Value;
+                digit_1 = codes.FirstOrDefault(x => x.Key == one).Value;
+                digit_2 = codes.FirstOrDefault(x => x.Key == two).Value;
+                digit_3 = codes.FirstOrDefault(x => x.Key == three).Value;
+                digit_4 = codes.FirstOrDefault(x => x.Key == four).Value;
+                digit_5 = codes.FirstOrDefault(x => x.Key == five).Value;
+                digit_6 = codes.FirstOrDefault(x => x.Key == six).Value;
+                digit_7 = codes.FirstOrDefault(x => x.Key == seven).Value;
+                digit_8 = codes.FirstOrDefault(x => x.Key == eight).Value;
+                digit_9 = codes.FirstOrDefault(x => x.Key == nine).Value;
             }
 
-            Console.WriteLine($"instances of easy digits {easyDigits.Count}");
+
         }
 
-        private static void SetDigits(List<string> _segments)
-        {
-            string digits = "";
-            
-            // 0
-
-        }
-
-        private static void PrintSegment(string segment = "")
-        {
-            List<string> segments = new List<string>();
-
-            segment = "gcbe";
-
-            // 1,2,3,4 & 6,7,8,9
-            segments.Add($" dddd ");//0
-            segments.Add($"e");//1
-            segments.Add($"    a");//2
-            segments.Add($"e");//3
-            segments.Add($"    a");//4
-            segments.Add($" ffff ");//5
-            segments.Add($"g");//6
-            segments.Add($"    b");//7
-            segments.Add($"g");//8
-            segments.Add($"    b");//9
-            segments.Add($" cccc");//10
-
-            if (segment.Length == digit_0 || segment.Length == digit_6 || segment.Length == digit_9)
-            {
-
-            }
-
-            if (segment.Length == digit_1)
-            {
-                // draw 1
-                Console.WriteLine($" {segments[2]}");
-                Console.WriteLine($" {segments[4]}");
-                Console.WriteLine();
-                Console.WriteLine($" {segments[7]}");
-                Console.WriteLine($" {segments[9]}");
-            }
-
-            if (segment.Length == digit_7)
-            {
-                // draw 7
-                Console.WriteLine($"{segments[0]}");
-                Console.WriteLine($" {segments[2]}");
-                Console.WriteLine($" {segments[4]}");
-                Console.WriteLine();
-                Console.WriteLine($" {segments[7]}");
-                Console.WriteLine($" {segments[9]}");
-            }
-
-            if (segment.Length == digit_4)
-            {
-                // draw 4
-                Console.WriteLine($"{segments[1]}{segments[2]}");
-                Console.WriteLine($"{segments[3]}{segments[4]}");
-                Console.WriteLine($"{segments[5]}");
-                Console.WriteLine($" {segments[7]}");
-                Console.WriteLine($" {segments[9]}");
-            }
-
-            if (segment.Length == digit_8)
-            {
-                // draw 8
-                Console.WriteLine($"{segments[0]}");
-                Console.WriteLine($"{segments[1]}{segments[2]}");
-                Console.WriteLine($"{segments[3]}{segments[4]}");
-                Console.WriteLine($"{segments[5]}");
-                Console.WriteLine($"{segments[6]}{segments[7]}");
-                Console.WriteLine($"{segments[8]}{segments[9]}");
-                Console.WriteLine($"{segments[10]}");
-            }
-        }
     }
 }

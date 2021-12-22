@@ -232,7 +232,6 @@ namespace Day_4
                     {
                         // add each number to current Board
                         currentBoard[lines, j % 5] = Convert.ToInt32(line[j]);
-
                     }
 
                     lines++;
