@@ -62,7 +62,7 @@ namespace Day_8
             var final = 0;
 
             // get strings after '|'
-            foreach (string input in testinputs)
+            foreach (string input in inputs)
             {
                 string[] splitLine = input.Split('|');
                 decoder = splitLine[0].Split(' ').Where(k => k != "").ToArray();
@@ -123,6 +123,7 @@ namespace Day_8
                     {
                         if (numbers[j].Length == outputs[i].Length)
                         {
+                            yes = 0;
                             for (int n = 0; n < numbers[j].Length; n++)
                             {
                                 if (yes == numbers[j].Length)
@@ -138,13 +139,13 @@ namespace Day_8
                                         break;
                                     }
                                 }
+
                             }
 
                             if (yes == numbers[j].Length)
                             {
                                 var num = codes.First(x => x.Key == numbers[j]).Value;
 
-                                // why 8364??
                                 codeBuilder.Append(num.ToString());
 
                                 yes = 0;
@@ -153,25 +154,20 @@ namespace Day_8
 
                         }
                     }
+
                 }
 
-                for (int i = 0; i < decodes.Count; i++)
-                {
-                    
-                }
-
-                digit_0 = codes.FirstOrDefault(x => x.Key == zero).Value;
-                digit_1 = codes.FirstOrDefault(x => x.Key == one).Value;
-                digit_2 = codes.FirstOrDefault(x => x.Key == two).Value;
-                digit_3 = codes.FirstOrDefault(x => x.Key == three).Value;
-                digit_4 = codes.FirstOrDefault(x => x.Key == four).Value;
-                digit_5 = codes.FirstOrDefault(x => x.Key == five).Value;
-                digit_6 = codes.FirstOrDefault(x => x.Key == six).Value;
-                digit_7 = codes.FirstOrDefault(x => x.Key == seven).Value;
-                digit_8 = codes.FirstOrDefault(x => x.Key == eight).Value;
-                digit_9 = codes.FirstOrDefault(x => x.Key == nine).Value;
+                outputValues.Add(Convert.ToInt32(codeBuilder.ToString()));
+                codeBuilder.Clear();
+                codes.Clear();
             }
 
+            for (int i = 0; i < outputValues.Count; i++)
+            {
+                final += outputValues[i];
+            }
+
+            Console.WriteLine($"Final score: {final}");
 
         }
 
