@@ -54,6 +54,7 @@ namespace Day_11
                 for (int y = 0; y < field.Length; y++)
                 {
                     var currentField = field[x, y];
+                    bool foundNine = false;
 
                     // (1) increase energy level by 1
                     currentField += 1;
@@ -61,6 +62,8 @@ namespace Day_11
                     // (2) check if energy level is greater than 9
                     if (currentField > 9)
                     {
+                        foundNine = true;
+
                         // (3) if so increase all adjacent values by 1
                         // left, right, up, down, up left, up right, down left, down right
 
@@ -68,12 +71,18 @@ namespace Day_11
                         // right = field [x +1, y] | topRight = field[x+1, y-1] | downRight = field[x+1, y+1]
                         // up = field[x, y-1
                         // down = field[x, y+1]
+                        while (foundNine)
+                        {
 
 
-                        // (4) increase flash count by 1
-                        // (5) and then set the value which exceeded 9 to 0
-                        // repeat until there are no more flashes
-                        // (6) and move on to the next field and repeat
+
+                            // (4) increase flash count by 1
+                            flashes += 1;
+
+                            // (5) and then set the value which exceeded 9 to 0
+                            // repeat until there are no more flashes
+                            // (6) and move on to the next field and repeat
+                        }
                     }
                 }
             }
