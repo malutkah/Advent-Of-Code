@@ -11,21 +11,7 @@ namespace Day_8
     {
         private static List<string> inputs = new List<string>();
         private static List<string> testinputs = new List<string>();
-        private static List<string> digitsString = new List<string>();
         private static Dictionary<string, int> codes = new Dictionary<string, int>();
-
-        #region digits
-        private static int digit_0 = 0;
-        private static int digit_1 = 0;
-        private static int digit_2 = 0;
-        private static int digit_3 = 0;
-        private static int digit_4 = 0;
-        private static int digit_5 = 0;
-        private static int digit_6 = 0;
-        private static int digit_7 = 0;
-        private static int digit_8 = 0;
-        private static int digit_9 = 0;
-        #endregion
 
         private static void FillList()
         {
@@ -55,7 +41,6 @@ namespace Day_8
         private static void Solve()
         {
             List<int> outputValues = new List<int>();
-            List<string> decodes = new List<string>();
             StringBuilder codeBuilder = new StringBuilder();
             string[] decoder = new string[58];
             string[] outputs = new string[58];
