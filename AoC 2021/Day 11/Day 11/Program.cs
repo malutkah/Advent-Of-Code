@@ -73,9 +73,6 @@ namespace Day_11
                         // down = field[x, y+1]
                         while (foundNine)
                         {
-
-
-
                             // (4) increase flash count by 1
                             flashes += 1;
 
