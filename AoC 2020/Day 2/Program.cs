@@ -9,7 +9,7 @@ namespace Day_2
 {
     class Program
     {
-        private static void FillList(List<string> input, string path = "real")
+        private static List<string> FillList(List<string> input, string path = "real")
         {
             string inputPath = path == "real" ? @"../../input.txt" : @"../../testinput.txt";
 
@@ -17,16 +17,15 @@ namespace Day_2
             {
                 input.Add(line);
             }
+
+            return input;
         }
 
         static void Main(string[] args)
         {
             List<string> inputs = new List<string>();
-            List<string> testinputs = new List<string>();
-            FillList(inputs);
-            FillList(testinputs, "test");
 
-            Solve(inputs);
+            Solve(FillList(inputs, "real"));
 
             Console.ReadKey();
         }
@@ -44,8 +43,8 @@ namespace Day_2
                 // get numbers (e.g. 12-3)
                 string[] letterAppear = splitted[0].Split('-');
 
-                int letterAtLeast = int.Parse(letterAppear[0]);
-                int letterAtMost = int.Parse(letterAppear[1]);
+                int letterFirstPosition = int.Parse(letterAppear[0]);
+                int letterLastPosition = int.Parse(letterAppear[1]);
 
                 // get the letter that must be in the password
                 char letterMustHave = splitted[1][0];
@@ -53,23 +52,15 @@ namespace Day_2
                 string password = splitted[2];
 
                 // check if password is correct
-                int howManyLettersInPassword = 0;
 
-                foreach (var letter in password)
+                if ((password[letterFirstPosition - 1] == letterMustHave && password[letterLastPosition - 1] != letterMustHave) || (password[letterFirstPosition - 1] != letterMustHave && password[letterLastPosition - 1] == letterMustHave))
                 {
-                    if (letterMustHave == letter)
-                    {
-                        howManyLettersInPassword++;
-                    }
+                    isPasswordValid = true;
                 }
-
-                isPasswordValid = (howManyLettersInPassword <= letterAtMost) && (howManyLettersInPassword >= letterAtLeast) ? true : false;
 
                 validPasswordAmound = isPasswordValid ? validPasswordAmound += 1 : validPasswordAmound;
 
-                Console.WriteLine($"{letterAtLeast}-{letterAtMost} {letterMustHave}: {password} => {isPasswordValid}");
-
-                isPasswordValid = false;
+                Console.WriteLine($"{letterFirstPosition}-{letterLastPosition} {letterMustHave}: {password} => {isPasswordValid}");
             }
 
             Console.WriteLine($"Amount of valid Passwords: {validPasswordAmound}");
