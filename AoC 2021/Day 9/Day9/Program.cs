@@ -1,48 +1,155 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Day9
 {
+    public enum Direction { RIGHT, LEFT, BOTTOM, UP }
+
     class Program
     {
-        private static List<string> inputs = new List<string>();
-        private static List<string> testinputs = new List<string>();
         private static Dictionary<Vector2, int> heigths = new Dictionary<Vector2, int>();
+        private static Basin basin;
 
-        private static void FillList()
+        private static List<string> FillList(List<string> input, string path = "real")
         {
-            string inputPath = @"..\..\input.txt";
-            string testinputPath = @"..\..\testinput.txt";
+            string inputPath = path == "real" ? @"..\..\input.txt" : @"..\..\testinput.txt";
 
             foreach (string line in File.ReadLines(inputPath))
             {
-                inputs.Add(line);
+                input.Add(line);
             }
 
-            foreach (string line in File.ReadLines(testinputPath))
-            {
-                testinputs.Add(line);
-            }
+            return input;
         }
+
 
         static void Main(string[] args)
         {
-            FillList();
-            Solve();
+            basin = new Basin();
+            List<string> inputs = new List<string>();
+
+            Solve(FillList(inputs, "real"));
+
             Console.ReadKey();
         }
 
-        private static void Solve()
+        private static void Solve2(List<string> input)
+        {
+
+            List<int> lowValues = new List<int>();
+            int rows = input.Count - 1;
+            int columns = input[0].Length - 1;
+            int current = -1;
+            CreateHeightMap(input);
+
+            for (int row = 0; row <= rows; row++)
+            {
+                for (int col = 0; col <= columns; col++)
+                {
+                    current = ValueOf(row, col);
+
+                    if (row == 0)
+                    {
+                        if (row == 0 && col == 0)
+                        {
+                            // top left corner
+
+                            if (ValueOf(row, col) == 9)
+                            {
+                                continue;
+                            }
+
+                            // compare right & bottom with current                                                     
+                            if (GetValue(Direction.RIGHT, row, col) < current)
+                            {
+                                if (GetValue(Direction.BOTTOM, row, col) < current && GetValue(Direction.BOTTOM, row, col) < GetValue(Direction.RIGHT, row, col))
+                                {
+                                    // bottom is smaller
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            // top edge
+                            // check left, right, bottom
+                            if (col != columns)
+                            {
+
+                            }
+                        }
+                    }
+
+                    if (col == 0)
+                    {
+                        if (row == rows && col == 0)
+                        {
+                            // bottom left
+                            // check up && right
+
+                        }
+                        else
+                        {
+                            // left edge
+                            // check up, right, bottom
+
+                            if (row != 0)
+                            {
+                            }
+                        }
+                    }
+
+                    if (col == columns)
+                    {
+                        if (row == 0 && col == columns)
+                        {
+                            // top right
+                            // check left && bottom
+                        }
+                        else
+                        {
+                            // right edge
+                            // check up, left, bottom
+
+                        }
+                    }
+
+                    if (row == rows)
+                    {
+                        if (row == rows && col == columns)
+                        {
+                            // bottom right
+                            // check up && left
+
+                        }
+                        else
+                        {
+                            // bottom edge
+                            // check up, left, right
+                        }
+                    }
+
+                    if (row != 0 && row != rows && col != 0 && col != columns)
+                    {
+                        // check all
+                    }
+
+                }
+            }
+        }
+
+        private static void Solve(List<string> input)
         {
             List<int> lowValues = new List<int>();
-            int rows = testinputs.Count - 1;
-            int columns = testinputs[0].Length - 1;
-            CreateHeightMap();
+            int rows = input.Count - 1;
+            int columns = input[0].Length - 1;
+            CreateHeightMap(input);
 
             for (int row = 0; row <= rows; row++)
             {
@@ -54,9 +161,9 @@ namespace Day9
                         {
                             // top left
                             // check right && bottom
-                            if (isRightLower(row, col) && isBottomLower(row, col))
+                            if (IsItLower(Direction.RIGHT, row, col) && IsItLower(Direction.BOTTOM, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                         else
@@ -65,9 +172,9 @@ namespace Day9
                             // check left, right, bottom
                             if (col != columns)
                             {
-                                if (isLeftLower(row, col) && isRightLower(row, col) && isBottomLower(row, col))
+                                if (IsItLower(Direction.LEFT, row, col) && IsItLower(Direction.RIGHT, row, col) && IsItLower(Direction.BOTTOM, row, col))
                                 {
-                                    lowValues.Add(heigths[new Vector2(row, col)]);
+                                    lowValues.Add(ValueOf(row, col));
                                 }
                             }
                         }
@@ -80,9 +187,9 @@ namespace Day9
                             // bottom left
                             // check up && right
 
-                            if (isUpLower(row, col) && isRightLower(row, col))
+                            if (IsItLower(Direction.UP, row, col) && IsItLower(Direction.RIGHT, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                         else
@@ -92,9 +199,9 @@ namespace Day9
 
                             if (row != 0)
                             {
-                                if (isUpLower(row, col) && isRightLower(row, col) && isBottomLower(row, col))
+                                if (IsItLower(Direction.UP, row, col) && IsItLower(Direction.RIGHT, row, col) && IsItLower(Direction.BOTTOM, row, col))
                                 {
-                                    lowValues.Add(heigths[new Vector2(row, col)]);
+                                    lowValues.Add(ValueOf(row, col));
                                 }
                             }
                         }
@@ -107,9 +214,9 @@ namespace Day9
                             // top right
                             // check left && bottom
 
-                            if (isLeftLower(row, col) && isBottomLower(row, col))
+                            if (IsItLower(Direction.LEFT, row, col) && IsItLower(Direction.BOTTOM, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                         else
@@ -117,9 +224,9 @@ namespace Day9
                             // right edge
                             // check up, left, bottom
 
-                            if (isUpLower(row, col) && isLeftLower(row, col) && isBottomLower(row, col))
+                            if (IsItLower(Direction.UP, row, col) && IsItLower(Direction.LEFT, row, col) && IsItLower(Direction.BOTTOM, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                     }
@@ -131,27 +238,27 @@ namespace Day9
                             // bottom right
                             // check up && left
 
-                            if (isUpLower(row, col) && isLeftLower(row, col))
+                            if (IsItLower(Direction.UP, row, col) && IsItLower(Direction.LEFT, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                         else
                         {
                             // bottom edge
                             // check up, left, right
-                            if (isUpLower(row, col) && isLeftLower(row, col) && isRightLower(row, col))
+                            if (IsItLower(Direction.UP, row, col) && IsItLower(Direction.LEFT, row, col) && IsItLower(Direction.RIGHT, row, col))
                             {
-                                lowValues.Add(heigths[new Vector2(row, col)]);
+                                lowValues.Add(ValueOf(row, col));
                             }
                         }
                     }
 
                     if (row != 0 && row != rows && col != 0 && col != columns)
                     {
-                        if (isRightLower(row, col) && isLeftLower(row, col) && isUpLower(row, col) && isBottomLower(row, col))
+                        if (IsItLower(Direction.RIGHT, row, col) && IsItLower(Direction.LEFT, row, col) && IsItLower(Direction.UP, row, col) && IsItLower(Direction.BOTTOM, row, col))
                         {
-                            lowValues.Add(heigths[new Vector2(row, col)]);
+                            lowValues.Add(ValueOf(row, col));
                         }
                     }
 
@@ -167,37 +274,73 @@ namespace Day9
             Console.WriteLine($"{sum + lowValues.Count}");
         }
 
-
-        private static bool isRightLower(int row, int col)
+        private static int GetValue(Direction direction, int row, int col)
         {
-            return heigths[new Vector2(row, col)] < heigths[new Vector2(row, col + 1)] ? true : false;
-        }
+            int value = 0;
 
-        private static bool isLeftLower(int row, int col)
-        {
-            return heigths[new Vector2(row, col)] < heigths[new Vector2(row, col - 1)] ? true : false;
-        }
-
-        private static bool isUpLower(int row, int col)
-        {
-            return heigths[new Vector2(row, col)] < heigths[new Vector2(row - 1, col)] ? true : false;
-        }
-
-        private static bool isBottomLower(int row, int col)
-        {
-            return heigths[new Vector2(row, col)] < heigths[new Vector2(row + 1, col)] ? true : false;
-        }
-
-        private static void CreateHeightMap()
-        {
-            for (int row = 0; row < testinputs.Count; row++)
+            switch (direction)
             {
-                for (int col = 0; col < testinputs[0].Length; col++)
+                case Direction.RIGHT:
+                    value = ValueOf(row, col + 1);
+                    break;
+                case Direction.LEFT:
+                    value = ValueOf(row, col - 1);
+                    break;
+                case Direction.BOTTOM:
+                    value = ValueOf(row + 1, col);
+                    break;
+                case Direction.UP:
+                    value = ValueOf(row - 1, col);
+                    break;
+                default:
+                    break;
+            }
+
+            return value;
+        }
+
+        private static bool IsItLower(Direction direction, int row, int col)
+        {
+            switch (direction)
+            {
+                case Direction.RIGHT:
+                    return ValueOf(row, col) < ValueOf(row, col + 1);
+                    break;
+                case Direction.LEFT:
+                    return ValueOf(row, col) < ValueOf(row, col - 1);
+                    break;
+                case Direction.BOTTOM:
+                    return ValueOf(row, col) < ValueOf(row + 1, col);
+                    break;
+                case Direction.UP:
+                    return ValueOf(row, col) < ValueOf(row - 1, col);
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }
+
+        private static void CreateHeightMap(List<string> input)
+        {
+            for (int row = 0; row < input.Count; row++)
+            {
+                for (int col = 0; col < input[0].Length; col++)
                 {
-                    var value = Convert.ToInt32(testinputs[row][col].ToString());
+                    var value = Convert.ToInt32(input[row][col].ToString());
                     heigths.Add(new Vector2(row, col), value);
                 }
             }
         }
+
+        private static int ValueOf(int row, int col)
+        {
+            return heigths[new Vector2(row, col)];
+        }
     }
+}
+
+public class Basin
+{
+    public int Size { get; set; }
 }

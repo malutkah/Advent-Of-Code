@@ -19,3 +19,10 @@ C:\Users\a.tressin\Nextcloud3\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Day9.
 C:\Users\a.tressin\Nextcloud3\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Day9.csproj.CoreCompileInputs.cache
 C:\Users\a.tressin\Nextcloud3\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Da9.exe
 C:\Users\a.tressin\Nextcloud3\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Da9.pdb
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\bin\Debug\Da9.exe.config
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\bin\Debug\Da9.exe
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\bin\Debug\Da9.pdb
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Day9.csproj.AssemblyReference.cache
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Day9.csproj.CoreCompileInputs.cache
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Da9.exe
+D:\_github.repositories\unity projects\Advent-Of-Code\AoC 2021\Day 9\Day9\obj\Debug\Da9.pdb
