@@ -10,7 +10,6 @@ namespace Day9
     class Program
     {
         private static Dictionary<Vector2, int> heigths = new Dictionary<Vector2, int>();
-        private static Basin basin;
 
         private static List<string> FillList(List<string> input, string path = "real")
         {
@@ -27,7 +26,6 @@ namespace Day9
 
         static void Main(string[] args)
         {
-            basin = new Basin();
             List<string> inputs = new List<string>();
 
             Solve(FillList(inputs, "real"));
@@ -37,7 +35,6 @@ namespace Day9
 
         private static void Solve2(List<string> input)
         {
-
             List<int> lowValues = new List<int>();
             int rows = input.Count - 1;
             int columns = input[0].Length - 1;
@@ -48,100 +45,10 @@ namespace Day9
             {
                 for (int col = 0; col <= columns; col++)
                 {
-                    current = ValueOf(row, col);
-
-                    if (row == 0)
-                    {
-                        if (row == 0 && col == 0)
-                        {
-                            // top left corner
-
-                            if (ValueOf(row, col) == 9)
-                            {
-                                continue;
-                            }
-
-                            // compare right & bottom with current                                                     
-                            if (GetValue(Direction.RIGHT, row, col) < current)
-                            {
-                                if (GetValue(Direction.BOTTOM, row, col) < current && GetValue(Direction.BOTTOM, row, col) < GetValue(Direction.RIGHT, row, col))
-                                {
-                                    // bottom is smaller
-                                }
-                                else
-                                {
-
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            // top edge
-                            // check left, right, bottom
-                            if (col != columns)
-                            {
-
-                            }
-                        }
-                    }
-
-                    if (col == 0)
-                    {
-                        if (row == rows && col == 0)
-                        {
-                            // bottom left
-                            // check up && right
-
-                        }
-                        else
-                        {
-                            // left edge
-                            // check up, right, bottom
-
-                            if (row != 0)
-                            {
-                            }
-                        }
-                    }
-
-                    if (col == columns)
-                    {
-                        if (row == 0 && col == columns)
-                        {
-                            // top right
-                            // check left && bottom
-                        }
-                        else
-                        {
-                            // right edge
-                            // check up, left, bottom
-
-                        }
-                    }
-
-                    if (row == rows)
-                    {
-                        if (row == rows && col == columns)
-                        {
-                            // bottom right
-                            // check up && left
-
-                        }
-                        else
-                        {
-                            // bottom edge
-                            // check up, left, right
-                        }
-                    }
-
-                    if (row != 0 && row != rows && col != 0 && col != columns)
-                    {
-                        // check all
-                    }
-
+                    
                 }
             }
+
         }
 
         private static void Solve(List<string> input)
@@ -338,9 +245,4 @@ namespace Day9
             return heigths[new Vector2(row, col)];
         }
     }
-}
-
-public class Basin
-{
-    public int Size { get; set; }
 }
