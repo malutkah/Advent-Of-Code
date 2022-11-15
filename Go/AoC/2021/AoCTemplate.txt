@@ -1,0 +1,9 @@
+package day
+
+import (
+	aoc "AoC/2021"
+)
+
+func Solve() {
+    var inputs = aoc.GetInput("day1", "testinput")
+}
