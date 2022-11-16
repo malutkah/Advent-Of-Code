@@ -6,9 +6,9 @@ import (
 )
 
 func Solve() {
-	var input = aoc.GetInput("2021", "day3", "testinput")
+	var input = aoc.GetInput("2021", "day3", "test")
 
-	for i := 0; i < len(input); i++ {
+	for _, i := range input {
 		fmt.Println(i)
 	}
 }

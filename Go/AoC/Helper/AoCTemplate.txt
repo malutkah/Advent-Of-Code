@@ -1,0 +1,14 @@
+package day
+
+import (
+	aoc "AoC/Helper"
+	"fmt"
+)
+
+func Solve() {
+    var inputs = aoc.GetInput("year", "day", "test")
+
+    for _, i := range inputs {
+        fmt.Println(i)
+    }
+}
