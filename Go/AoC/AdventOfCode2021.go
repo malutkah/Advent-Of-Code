@@ -1,9 +1,10 @@
 package main
 
 import (
-	"AoC/2021/day3"
+	"AoC/cmd"
 )
 
 func main() {
-	day3.Solve()
+	cmd.Execute()
+	//day3.Solve()
 }
