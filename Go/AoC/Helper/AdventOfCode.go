@@ -22,6 +22,7 @@ import (
 		aoc start [day] [year]
 			aoc start 4 2021
 */
+/* ========== CREATE NEW DAY ============================================================================================== */
 
 func NewDay(day, year string) {
 	d, _ := strconv.Atoi(day)
@@ -41,10 +42,6 @@ func NewDay(day, year string) {
 	}
 }
 
-func StartDay(day, year string) {
-
-}
-
 func isDayValid(day int) bool {
 	return day > 0 && day < 26
 }
@@ -59,7 +56,12 @@ func setTemplateValues(year, day string) string {
 		log.Fatal(err)
 	}
 
-	defer f.Close()
+	defer func(f *os.File) {
+		err := f.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(f)
 
 	scanner := bufio.NewScanner(f)
 
@@ -115,3 +117,24 @@ func createTemplate(year string, day string, templateText string) {
 		fmt.Printf("Unable to write file: %v", err)
 	}
 }
+
+/* ======================================================================================================== */
+
+/* ========== START A DAY ================================================================================================= */
+
+func StartDay(day, year string) {
+	// check if year is available (is year a dir?)
+	// check if day is available (is day a dir in year?)
+}
+
+func isYearDirectory(year string) bool {
+
+	return true
+}
+
+func isDayInsideYear(day, year string) bool {
+
+	return true
+}
+
+/* ======================================================================================================== */
