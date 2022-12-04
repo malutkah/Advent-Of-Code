@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -31,7 +32,7 @@ func NewDay(day, year string) {
 	if isYearValid(y) && isDayValid(d) {
 		day = "day" + day
 
-		templateText := setTemplateValues(year, day)
+		templateText := setTemplateValues(year, day, "AoCTemplate")
 		createTemplate(year, day, templateText)
 
 		fmt.Printf("Created %v in year %v", day, year)
@@ -50,8 +51,8 @@ func isYearValid(year int) bool {
 	return year > 2014 && year < 2023
 }
 
-func setTemplateValues(year, day string) string {
-	f, err := os.Open("Helper/AoCTemplate.txt")
+func setTemplateValues(year, day, fileName string) string {
+	f, err := os.Open("Helper/" + fileName + ".txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -123,18 +124,70 @@ func createTemplate(year string, day string, templateText string) {
 /* ========== START A DAY ================================================================================================= */
 
 func StartDay(day, year string) {
+	canStart := false
+
 	// check if year is available (is year a dir?)
-	// check if day is available (is day a dir in year?)
+	if y := isYearDirectory(year); y {
+		// check if day is available (is day a dir in year?)
+		canStart = isDayInsideYear(day, year)
+	} else {
+		fmt.Println("year is NOT available")
+	}
+
+	if canStart {
+		day = "day" + day
+		t := setTemplateValues(year, day, "main_template")
+
+		// create new main.go file to execute
+		err := os.WriteFile("main.go", []byte(t), 0755)
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+			return
+		}
+
+		cmd := exec.Command("go", "build")
+		//cmd := exec.Command("echo", "starting day...")
+		out, err := cmd.Output()
+
+		if err != nil {
+			fmt.Println("couldn't start date")
+			log.Fatal(err)
+		}
+
+		fmt.Println(string(out))
+	}
+}
+
+func generic(fn func()) {
+
 }
 
 func isYearDirectory(year string) bool {
+	cmd := exec.Command("ls", "./")
+	out, err := cmd.Output()
 
-	return true
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if strings.Contains(string(out), year) {
+		return true
+	}
+	return false
 }
 
 func isDayInsideYear(day, year string) bool {
+	cmd := exec.Command("ls", "./"+year)
+	out, err := cmd.Output()
 
-	return true
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if strings.Contains(string(out), day) {
+		return true
+	}
+	return false
 }
 
 /* ======================================================================================================== */

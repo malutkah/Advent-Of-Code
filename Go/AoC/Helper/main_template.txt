@@ -1,0 +1,14 @@
+/*
+Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+*/
+package main
+
+import (
+"AoC/year/day"
+"AoC/cmd"
+)
+
+func main() {
+	cmd.Execute()
+	day.Solve()
+}
