@@ -158,15 +158,12 @@ func StartDay(day, year string) {
 	}
 }
 
-func generic(fn func()) {
-
-}
-
 func isYearDirectory(year string) bool {
-	cmd := exec.Command("ls", "./")
+	cmd := exec.Command("cmd", "/C", "ls", "./")
 	out, err := cmd.Output()
 
 	if err != nil {
+		fmt.Println("error at isYearDirectory")
 		log.Fatal(err)
 	}
 
@@ -181,6 +178,7 @@ func isDayInsideYear(day, year string) bool {
 	out, err := cmd.Output()
 
 	if err != nil {
+		fmt.Println("error at isDayInsideYear")
 		log.Fatal(err)
 	}
 
