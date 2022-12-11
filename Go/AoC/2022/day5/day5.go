@@ -3,38 +3,70 @@ package day5
 import (
 	aoc "AoC/Helper"
 	"fmt"
+	"strings"
 )
+
+type stack struct {
+	items []string
+}
+
+func (s *stack) Push(itm string) {
+	s.items = append(s.items, itm)
+	return
+}
+
+func (s *stack) Pop() (itm string) {
+	itm = s.items[len(s.items)-1]
+	s.items = s.items[:len(s.items)-1]
+	return
+}
 
 func Solve() {
 	var inputs = aoc.GetInput("2022", "day5", "test")
-	var crates []string
-	// get the crates: [N], [W], ...
-	// get move commands
+	var moves []string
+	stacks := make([]stack, 3)
 
 	for _, i := range inputs {
-		if i == "" {
-			break
+		if strings.HasPrefix(i, "move") {
+			moves = append(moves, i)
 		}
-		crates = append(crates, i)
 	}
 
-	getCrate(crates)
+	moveCreates(moves, stacks)
+	fmt.Println(stacks)
 }
 
-func getCrate(crates []string) {
-	/*
-		a crate is defined by 3 chars => [N]
-		row width = 3
-		rows are seperated by spaces => " "
+func moveCreates(moves []string, stacks []stack) {
 
-	*/
+	for _, move := range moves {
+		var amount, moveFrom, moveTo int
+		_, _ = fmt.Sscanf(move, "move %d from %d to %d", &amount, &moveFrom, &moveTo)
 
-	// rowWidth := 3
-	// row := 8
+		for m := 0; m < amount; m++ {
+			// move crates around
+			stacks[moveTo-1].Push(stacks[moveFrom-1].Pop())
+		}
+	}
+}
 
-	fmt.Println(len(crates[cap(crates)-1]))
+func getCrate(crates []string, col int) stack {
+	s := stack{}
+	c := ""
 
-	// print third row
-	// third row = crates[cap(crates)-1] to crates[cap(crates)-3]
+	// 0 = row1, 4 = row2, 8 = row3
+	column := (col - 1) * 4
 
+	for i := column; i < column+4; i++ {
+		for n := 0; n < 11; n++ {
+			if n < len(crates[i]) {
+				if aoc.Uint8ToS(crates[i][n]) != " " {
+					c += aoc.Uint8ToS(crates[i][n])
+				}
+			}
+		}
+		s.Push(c)
+		c = ""
+	}
+
+	return s
 }

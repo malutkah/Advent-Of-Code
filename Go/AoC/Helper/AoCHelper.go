@@ -42,6 +42,14 @@ func ItoS(n int) string {
 	return strconv.Itoa(n)
 }
 
+func RtoS(r rune) string {
+	return string(r)
+}
+
+func Uint8ToS(u uint8) string {
+	return string(u)
+}
+
 /*
 MinMax returns the min and max value of a given slice of type int
 */
