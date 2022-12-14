@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"unicode/utf8"
 )
 
 func GetInput(year string, day string, file string) []string {
@@ -46,8 +47,22 @@ func RtoS(r rune) string {
 	return string(r)
 }
 
+func BtoS(b byte) string {
+	return string(b)
+}
+
 func Uint8ToS(u uint8) string {
 	return string(u)
+}
+
+func TrimFirstRune(s string) string {
+	_, i := utf8.DecodeRuneInString(s)
+	return s[i:]
+}
+
+func Trim(s string, fromIndex int) string {
+	//_, i := utf8.DecodeRuneInString(s)
+	return s[fromIndex:]
 }
 
 /*
