@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -159,7 +160,16 @@ func StartDay(day, year string) {
 }
 
 func isYearDirectory(year string) bool {
-	cmd := exec.Command("cmd", "/C", "ls", "./")
+	var cmd *exec.Cmd
+
+	if runtime.GOOS == "windows" {
+		fmt.Println("is windows")
+		cmd = exec.Command("cmd", "/C", "dir")
+	} else {
+		fmt.Println("is not windows")
+		cmd = exec.Command("cmd", "/C", "ls", "./")
+	}
+
 	out, err := cmd.Output()
 
 	if err != nil {
@@ -174,7 +184,16 @@ func isYearDirectory(year string) bool {
 }
 
 func isDayInsideYear(day, year string) bool {
-	cmd := exec.Command("ls", "./"+year)
+	var cmd *exec.Cmd
+
+	if runtime.GOOS == "windows" {
+		fmt.Println("is windows")
+		cmd = exec.Command("cmd", "/C", "dir", year)
+	} else {
+		fmt.Println("is not windows")
+		cmd = exec.Command("ls", "./"+year)
+	}
+
 	out, err := cmd.Output()
 
 	if err != nil {
