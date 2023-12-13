@@ -48,25 +48,3 @@ func moveCreates(moves []string, stacks []stack) {
 		}
 	}
 }
-
-func getCrate(crates []string, col int) stack {
-	s := stack{}
-	c := ""
-
-	// 0 = row1, 4 = row2, 8 = row3
-	column := (col - 1) * 4
-
-	for i := column; i < column+4; i++ {
-		for n := 0; n < 11; n++ {
-			if n < len(crates[i]) {
-				if aoc.Uint8ToS(crates[i][n]) != " " {
-					c += aoc.Uint8ToS(crates[i][n])
-				}
-			}
-		}
-		s.Push(c)
-		c = ""
-	}
-
-	return s
-}

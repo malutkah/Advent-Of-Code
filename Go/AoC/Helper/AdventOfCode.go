@@ -167,7 +167,7 @@ func isYearDirectory(year string) bool {
 		cmd = exec.Command("cmd", "/C", "dir")
 	} else {
 		fmt.Println("is not windows")
-		cmd = exec.Command("cmd", "/C", "ls", "./")
+		cmd = exec.Command("ls", "./")
 	}
 
 	out, err := cmd.Output()
