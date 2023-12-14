@@ -4,8 +4,9 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"AoC/Helper"
 	"fmt"
+
+	"AoC/Helper"
 	"github.com/spf13/cobra"
 )
 

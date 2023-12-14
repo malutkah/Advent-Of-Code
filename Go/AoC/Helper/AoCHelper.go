@@ -8,6 +8,15 @@ import (
 	"unicode/utf8"
 )
 
+func SliceContains(elems []string, v string) bool {
+	for _, s := range elems {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}
+
 func GetInput(year string, day string, file string) []string {
 	var path = year + "/" + day + "/" + file + ".txt"
 	f, err := os.Open(path)
@@ -61,7 +70,7 @@ func TrimFirstRune(s string) string {
 }
 
 func Trim(s string, fromIndex int) string {
-	//_, i := utf8.DecodeRuneInString(s)
+	// _, i := utf8.DecodeRuneInString(s)
 	return s[fromIndex:]
 }
 

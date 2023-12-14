@@ -26,6 +26,36 @@ import (
 */
 /* ========== CREATE NEW DAY ============================================================================================== */
 
+func AddPart2(day, year string) {
+	d, _ := strconv.Atoi(day)
+	y, _ := strconv.Atoi(year)
+
+	if isYearValid(y) && isDayValid(d) {
+		day = "day" + day
+		var path = year + "/" + day + "/"
+
+		err := os.Rename(path+"input.txt", path+"input1.txt")
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+		}
+
+		err = os.Rename(path+"test.txt", path+"test1.txt")
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+		}
+
+		err = os.WriteFile(path+"input.txt", []byte(""), 0755)
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+		}
+
+		err = os.WriteFile(path+"test.txt", []byte(""), 0755)
+		if err != nil {
+			fmt.Printf("Unable to write file: %v", err)
+		}
+	}
+}
+
 func NewDay(day, year string) {
 	d, _ := strconv.Atoi(day)
 	y, _ := strconv.Atoi(year)
@@ -49,7 +79,7 @@ func isDayValid(day int) bool {
 }
 
 func isYearValid(year int) bool {
-	return year > 2014 && year < 2023
+	return year > 2014 && year < 2025
 }
 
 func setTemplateValues(year, day, fileName string) string {
@@ -147,13 +177,19 @@ func StartDay(day, year string) {
 		}
 
 		cmd := exec.Command("go", "build")
-		//cmd := exec.Command("echo", "starting day...")
+		// cmd := exec.Command("echo", "starting day...")
 		out, err := cmd.Output()
-
 		if err != nil {
-			fmt.Println("couldn't start date")
+			fmt.Println("couldn't build")
 			log.Fatal(err)
 		}
+
+		// cmd = exec.Command("go", "run", "main.go")
+		// out, err = cmd.Output()
+		// if err != nil {
+		// 	fmt.Println("couldn't start date")
+		// 	log.Fatal(err)
+		// }
 
 		fmt.Println(string(out))
 	}
@@ -163,10 +199,10 @@ func isYearDirectory(year string) bool {
 	var cmd *exec.Cmd
 
 	if runtime.GOOS == "windows" {
-		fmt.Println("is windows")
+		// fmt.Println("is windows")
 		cmd = exec.Command("cmd", "/C", "dir")
 	} else {
-		fmt.Println("is not windows")
+		// fmt.Println("is not windows")
 		cmd = exec.Command("ls", "./")
 	}
 

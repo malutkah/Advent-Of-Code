@@ -8,7 +8,7 @@ import (
 func Solve() {
     var inputs = aoc.GetInput("year", "day", "test")
 
-    for _, i := range inputs {
+    for _, line := range inputs {
         fmt.Println(i)
     }
 }
