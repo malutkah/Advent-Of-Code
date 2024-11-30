@@ -7,6 +7,7 @@ import (
 	"AoC/Helper"
 	"fmt"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 // startCmd represents the start command
@@ -21,8 +22,10 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 2 {
+			os.Setenv("SOLVE_DAY1", "true")
 			Helper.StartDay(args[0], args[1])
 		} else {
+			os.Setenv("SOLVE_DAY1", "false")
 			fmt.Println("Invalid arguments! Enter only 2")
 		}
 	},

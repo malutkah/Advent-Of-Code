@@ -9,6 +9,6 @@ func Solve() {
     var inputs = aoc.GetInput("year", "day", "test")
 
     for _, line := range inputs {
-        fmt.Println(i)
+        fmt.Println(line)
     }
 }

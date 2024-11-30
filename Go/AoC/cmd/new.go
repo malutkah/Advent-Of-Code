@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"AoC/Helper"
 	"github.com/spf13/cobra"
@@ -13,7 +14,7 @@ import (
 // newCmd represents the new command
 var newCmd = &cobra.Command{
 	Use:   "new",
-	Short: "A brief description of your command",
+	Short: "Creates a new folder for a Year and Day",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -25,6 +26,7 @@ to quickly create a Cobra application.`,
 
 func newRun(cmd *cobra.Command, args []string) {
 	if len(args) == 2 {
+		os.Setenv("SOLVE_DAY1", "false")
 		Helper.NewDay(args[0], args[1])
 	} else {
 		fmt.Println("Invalid arguments! Enter only 2")

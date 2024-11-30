@@ -70,7 +70,7 @@ func NewDay(day, year string) {
 	} else {
 		fmt.Println("No valid day or year was entered!")
 		fmt.Println("Day has to be between 1 and 25!")
-		fmt.Println("The year has to be between 2015 and 2022!")
+		fmt.Println("The year has to be between 2015 and 2024!")
 	}
 }
 
@@ -79,7 +79,7 @@ func isDayValid(day int) bool {
 }
 
 func isYearValid(year int) bool {
-	return year > 2014 && year < 2025
+	return year > 2014 && year < 2026
 }
 
 func setTemplateValues(year, day, fileName string) string {
@@ -136,17 +136,28 @@ func createTemplate(year string, day string, templateText string) {
 
 	err := os.WriteFile(path+day+".go", []byte(templateText), 0755)
 	if err != nil {
-		fmt.Printf("Unable to write file: %v", err)
+		fmt.Println("Unable to write file:", err)
+		return
 	}
 
-	err = os.WriteFile(path+"input.txt", []byte(""), 0755)
+	// get input with GET Request
+	url := fmt.Sprintf("https://adventofcode.com/%s/day/%s/input", year, strings.Split(day, "day")[1])
+	t, err := GET(url)
 	if err != nil {
-		fmt.Printf("Unable to write file: %v", err)
+		fmt.Println("Unable to get input from adventofcode.com: ", err)
+		return
+	}
+
+	err = os.WriteFile(path+"input.txt", t, 0755)
+	if err != nil {
+		fmt.Println("Unable to write file: ", err)
+		return
 	}
 
 	err = os.WriteFile(path+"test.txt", []byte(""), 0755)
 	if err != nil {
-		fmt.Printf("Unable to write file: %v", err)
+		fmt.Println("Unable to write file: ", err)
+		return
 	}
 }
 
