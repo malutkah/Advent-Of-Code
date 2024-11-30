@@ -15,12 +15,16 @@ import (
 var newCmd = &cobra.Command{
 	Use:   "new",
 	Short: "Creates a new folder for a Year and Day",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Long: `The new command creates a new folder structure for the specified year and day for the Advent of Code challenge.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Usage:
+  aoc new [year] [day]
+
+Examples:
+  aoc new 2023 1  # Creates a new folder for day 1 of the year 2023
+  aoc new 2022 15 # Creates a new folder for day 15 of the year 2022
+
+This command sets up the necessary files and environment to begin solving the challenge for the specified day and year.`,
 	Run: newRun,
 }
 

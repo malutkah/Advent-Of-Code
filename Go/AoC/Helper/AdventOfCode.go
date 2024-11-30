@@ -174,6 +174,7 @@ func StartDay(day, year string) {
 		canStart = isDayInsideYear(day, year)
 	} else {
 		fmt.Println("year is NOT available")
+		return
 	}
 
 	if canStart {

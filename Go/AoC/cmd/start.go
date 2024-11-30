@@ -13,13 +13,17 @@ import (
 // startCmd represents the start command
 var startCmd = &cobra.Command{
 	Use:   "start",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Starts the specified day and year for the Advent of Code challenge",
+	Long: `The start command initializes the specified day and year for the Advent of Code challenge.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Usage:
+  aoc start [day] [year]
+
+Examples:
+  aoc start 1 2023  # Starts the challenge for day 1 of the year 2023
+  aoc start 15 2022 # Starts the challenge for day 15 of the year 2022
+
+This command sets up the necessary files and environment to begin solving the challenge for the specified day and year.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 2 {
 			os.Setenv("SOLVE_DAY1", "true")

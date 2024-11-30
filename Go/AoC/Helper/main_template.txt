@@ -10,6 +10,7 @@ import (
 )
 
 func main() {
+    os.Setenv("SOLVE_DAY1", "false")
 	cmd.Execute()
 
 	if shouldSolve() {
