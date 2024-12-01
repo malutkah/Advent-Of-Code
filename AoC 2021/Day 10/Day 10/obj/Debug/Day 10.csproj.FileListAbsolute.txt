@@ -1,2 +1,0 @@
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 10\Day 10\obj\Debug\Day 10.csproj.AssemblyReference.cache
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 10\Day 10\obj\Debug\Day 10.csproj.CoreCompileInputs.cache

@@ -1,7 +1,0 @@
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\bin\Debug\Day 11.exe.config
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\bin\Debug\Day 11.exe
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\bin\Debug\Day 11.pdb
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\obj\Debug\Day 11.csproj.AssemblyReference.cache
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\obj\Debug\Day 11.csproj.CoreCompileInputs.cache
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\obj\Debug\Day 11.exe
-C:\Users\Alan\Nextcloud2\Advent-Of-Code\AoC 2021\Day 11\Day 11\obj\Debug\Day 11.pdb
