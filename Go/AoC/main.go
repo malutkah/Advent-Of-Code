@@ -4,9 +4,10 @@ Copyright © 2024 malutkah <alan.tressin@outlook.com>
 package main
 
 import (
-	"AoC/2024/day2"
-	"AoC/cmd"
 	"os"
+
+	"AoC/2021/day3"
+	"AoC/cmd"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	cmd.Execute()
 
 	if shouldSolve() {
-		day2.Solve()
+		day3.Solve()
 	}
 }
 

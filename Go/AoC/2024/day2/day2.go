@@ -1,14 +1,16 @@
 package day2
 
 import (
-	aoc "AoC/Helper"
 	"fmt"
 	"strconv"
 	"strings"
+
+	aoc "AoC/Helper"
 )
 
 func remove(slice []int, s int) []int {
-	return append(slice[:s], slice[s+1:]...)
+	t := append(slice[:s], slice[s+1:]...)
+	return t
 }
 
 func isMonotonic(slice []int) bool {
@@ -34,7 +36,8 @@ func isMonotonic(slice []int) bool {
 
 func canBeMadeMonotonic(slice []int) bool {
 	for i := range slice {
-		newSlice := remove(slice, i)
+		newSlice := append([]int(nil), slice...) // Create a copy of the slice
+		newSlice = remove(newSlice, i)
 		if isMonotonic(newSlice) {
 			return true
 		}
@@ -43,7 +46,7 @@ func canBeMadeMonotonic(slice []int) bool {
 }
 
 func Solve() {
-	var inputs = aoc.GetInput("2024", "day2", "test")
+	var inputs = aoc.GetInput("2024", "day2", "input")
 
 	safeCount := 0
 	for _, line := range inputs {
@@ -60,10 +63,10 @@ func Solve() {
 		}
 
 		if isMonotonic(reports) || canBeMadeMonotonic(reports) {
-			fmt.Printf("%v is safe\n", reports)
+			// fmt.Printf("%v is safe\n", reports)
 			safeCount++
 		}
 	}
-	fmt.Printf("%v reports are safe", safeCount)
+	fmt.Printf("%v reports are safe\n", safeCount)
 
 }
