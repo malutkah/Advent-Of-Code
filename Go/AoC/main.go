@@ -4,10 +4,9 @@ Copyright © 2024 malutkah <alan.tressin@outlook.com>
 package main
 
 import (
-	"os"
-
-	"AoC/2021/day3"
+	"AoC/2024/day3"
 	"AoC/cmd"
+	"os"
 )
 
 func main() {
